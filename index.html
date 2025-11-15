@@ -410,6 +410,75 @@
         <!-- CRITICAL GAPS -->
         <h2 style="color: #2d3748; margin: 30px 0 20px 0; font-size: 1.8em;">⚠️ Critical Gaps</h2>
         <div class="diagram-grid">
+            <!-- Model & Tool Orchestration Layer -->
+            <div class="service-card needed">
+                <div class="service-header">
+                    <div class="service-icon">🎛️</div>
+                    <div class="service-title">
+                        <h3>Model & Tool Orchestration</h3>
+                        <div class="service-path">~/work/model_hub</div>
+                    </div>
+                </div>
+                <span class="status-badge needed">Critical Gap</span>
+                <p class="service-description">
+                    Orchestration layer that decides which models, MCP servers, and tools to use for each task. Routes requests to appropriate AI profiles and manages tool selection.
+                </p>
+                <ul class="service-features">
+                    <li class="missing">Registry of models & profiles (Claude Opus, Sonnet, Haiku)</li>
+                    <li class="missing">MCP server catalog (Context7, Serena, Sequential, Playwright)</li>
+                    <li class="missing">Intelligent routing: analyze task → select model & tools</li>
+                    <li class="missing">Policy-based fallback mechanisms</li>
+                    <li class="missing">Versioned configuration (YAML rules for Claude Code)</li>
+                    <li class="missing">API for agents: run_task(model_profile, tools)</li>
+                </ul>
+            </div>
+
+            <!-- Workspace & Repo Manager -->
+            <div class="service-card needed">
+                <div class="service-header">
+                    <div class="service-icon">💼</div>
+                    <div class="service-title">
+                        <h3>Workspace & Repo Manager</h3>
+                        <div class="service-path">~/work/workspace_manager</div>
+                    </div>
+                </div>
+                <span class="status-badge needed">Critical Gap</span>
+                <p class="service-description">
+                    Self-hosted workspace management with ephemeral environments. Creates isolated workspaces per task/branch with snapshot & rollback capabilities.
+                </p>
+                <ul class="service-features">
+                    <li class="missing">Workspace per task/branch (clone, patch, env setup)</li>
+                    <li class="missing">Ephemeral VM/container environments</li>
+                    <li class="missing">Snapshot before "creative mode", quick rollback</li>
+                    <li class="missing">Integration with Claude Code (runs inside workspace)</li>
+                    <li class="missing">Dependency management (uv, npm, docker)</li>
+                    <li class="missing">Bridge to Sandbox for low-level execution</li>
+                </ul>
+            </div>
+
+            <!-- Requirements & Spec Service -->
+            <div class="service-card needed">
+                <div class="service-header">
+                    <div class="service-icon">📋</div>
+                    <div class="service-title">
+                        <h3>Spec Service (Spec-as-Code)</h3>
+                        <div class="service-path">~/work/spec_service</div>
+                    </div>
+                </div>
+                <span class="status-badge needed">Critical Gap</span>
+                <p class="service-description">
+                    Translates business goals into clear, structured specifications for agentic coding. Template-based spec normalization with version control.
+                </p>
+                <ul class="service-features">
+                    <li class="missing">Standard templates: feature specs, bug specs, acceptance criteria</li>
+                    <li class="missing">Auto-transform vague ideas → structured JSON/contracts</li>
+                    <li class="missing">Git-versioned specifications repository</li>
+                    <li class="missing">Link spec_id ↔ branches/PRs ↔ agents</li>
+                    <li class="missing">Integration with Pulse Prana 2 roadmap</li>
+                    <li class="missing">Replaces free-text with structured payloads</li>
+                </ul>
+            </div>
+
             <!-- Code Generation Service -->
             <div class="service-card needed">
                 <div class="service-header">
@@ -424,11 +493,11 @@
                     Core service that actually generates, modifies, and manages code based on agent instructions and project requirements.
                 </p>
                 <ul class="service-features">
-                    <li class="missing">Template-based code generation</li>
+                    <li class="missing">Template-based code generation from Knowledge Base patterns</li>
                     <li class="missing">AST parsing and manipulation</li>
                     <li class="missing">Multi-language support (Python, TypeScript, etc.)</li>
                     <li class="missing">Code refactoring capabilities</li>
-                    <li class="missing">Integration with DLNP agents</li>
+                    <li class="missing">Integration with DLNP agents & Spec Service</li>
                     <li class="missing">Version control integration</li>
                 </ul>
             </div>
@@ -450,7 +519,7 @@
                     <li class="missing">Automated test generation</li>
                     <li class="missing">Unit/Integration/E2E test execution</li>
                     <li class="missing">Code coverage analysis</li>
-                    <li class="missing">Static code analysis</li>
+                    <li class="missing">Static code analysis (SAST)</li>
                     <li class="missing">Security vulnerability scanning</li>
                     <li class="missing">Performance benchmarking</li>
                 </ul>
@@ -490,15 +559,38 @@
                 </div>
                 <span class="status-badge needed">Critical Gap</span>
                 <p class="service-description">
-                    Centralized knowledge repository that stores project context, code patterns, best practices, and learned behaviors.
+                    The "cortex" of the system with 3-tier memory: long-term product memory, code pattern library, and run-time episodic memory.
                 </p>
                 <ul class="service-features">
+                    <li class="missing">Long-term: ADRs, architecture docs, best practices</li>
+                    <li class="missing">Code Pattern Library: validated templates for services/APIs</li>
+                    <li class="missing">Episodic Memory: Claude Code session journals & experiments</li>
                     <li class="missing">Vector database for semantic search</li>
-                    <li class="missing">Code pattern library</li>
-                    <li class="missing">Project context management</li>
-                    <li class="missing">Learning from past iterations</li>
-                    <li class="missing">Documentation generation</li>
-                    <li class="missing">API reference management</li>
+                    <li class="missing">MCP server integration for tool-based queries</li>
+                    <li class="missing">Auto-generated context files (claude.md per project)</li>
+                </ul>
+            </div>
+
+            <!-- Guardrails & Policy -->
+            <div class="service-card needed">
+                <div class="service-header">
+                    <div class="service-icon">🛡️</div>
+                    <div class="service-title">
+                        <h3>Policy Guardian (Guardrails)</h3>
+                        <div class="service-path">~/work/policy_guardian</div>
+                    </div>
+                </div>
+                <span class="status-badge needed">Critical Gap</span>
+                <p class="service-description">
+                    "Red line" between autonomy and disaster. Policy engine with governance, safety rules, and dual-control for dangerous operations.
+                </p>
+                <ul class="service-features">
+                    <li class="missing">Policy engine: allowed directories, read-only configs</li>
+                    <li class="missing">Rules for dangerous ops (mass deletes, DB migrations, pipeline changes)</li>
+                    <li class="missing">Dual-control AI for critical operations</li>
+                    <li class="missing">SAST & dependency policy (licenses, vulnerabilities)</li>
+                    <li class="missing">Integration with SuperClaude for rule-aware prompting</li>
+                    <li class="missing">Violation feedback → Knowledge Base anti-patterns</li>
                 </ul>
             </div>
         </div>
@@ -506,6 +598,75 @@
         <!-- RECOMMENDED ENHANCEMENTS -->
         <h2 style="color: #2d3748; margin: 30px 0 20px 0; font-size: 1.8em;">💡 Recommended Enhancements</h2>
         <div class="diagram-grid">
+            <!-- Agent Evaluation & Benchmarking -->
+            <div class="service-card recommended">
+                <div class="service-header">
+                    <div class="service-icon">📊</div>
+                    <div class="service-title">
+                        <h3>Agent Evaluation & Benchmarking</h3>
+                        <div class="service-path">~/work/agent_eval</div>
+                    </div>
+                </div>
+                <span class="status-badge recommended">Recommended</span>
+                <p class="service-description">
+                    Addresses "speed vs trust gap" with systematic agent evaluation. Suite of benchmark scenarios to measure and improve agent performance.
+                </p>
+                <ul class="service-features">
+                    <li class="missing">Standard scenarios (refactor, bugfix, greenfield feature)</li>
+                    <li class="missing">Automated benchmarks: time-to-solution, iterations, test success</li>
+                    <li class="missing">A/B testing: SuperClaude modes, Claude profiles, agent types</li>
+                    <li class="missing">Trust scores per agent/task type</li>
+                    <li class="missing">Regression tracking post-deploy</li>
+                    <li class="missing">Reports to Pulse Prana 2 as AI maturity metrics</li>
+                </ul>
+            </div>
+
+            <!-- Cost & Resource Management -->
+            <div class="service-card recommended">
+                <div class="service-header">
+                    <div class="service-icon">💰</div>
+                    <div class="service-title">
+                        <h3>Cost & Resource Manager</h3>
+                        <div class="service-path">~/work/cost_manager</div>
+                    </div>
+                </div>
+                <span class="status-badge recommended">Recommended</span>
+                <p class="service-description">
+                    Tracks and controls AI spend (cloud/on-prem). Prevents runaway costs from autonomous agents with plafonning and throttling.
+                </p>
+                <ul class="service-features">
+                    <li class="missing">Cost tracking: per project, agent, task</li>
+                    <li class="missing">Plafonning & throttling (quota check before execution)</li>
+                    <li class="missing">Heuristics: match task complexity to model tier</li>
+                    <li class="missing">Budget alerts & automatic pause</li>
+                    <li class="missing">Reports: "AI cost per feature", "compute per sprint"</li>
+                    <li class="missing">Integration: Model Hub quota check, Execution Flow cost timeline</li>
+                </ul>
+            </div>
+
+            <!-- Artifact & Supply Chain -->
+            <div class="service-card recommended">
+                <div class="service-header">
+                    <div class="service-icon">📦</div>
+                    <div class="service-title">
+                        <h3>Artifact & Supply Chain (SBOM)</h3>
+                        <div class="service-path">~/work/artifact_hub</div>
+                    </div>
+                </div>
+                <span class="status-badge recommended">Recommended</span>
+                <p class="service-description">
+                    Artifact registry with SBOM generation and provenance tracking. Full audit trail linking builds to agents, models, and policies.
+                </p>
+                <ul class="service-features">
+                    <li class="missing">Registry: Docker images, Python wheels, frontend bundles</li>
+                    <li class="missing">Auto-generated SBOM per build</li>
+                    <li class="missing">Tags: agent_id, model_version, knowledge_base_version</li>
+                    <li class="missing">Digital signatures (e.g., cosign)</li>
+                    <li class="missing">Audit trail: bug → agent → prompts → policies → build</li>
+                    <li class="missing">Integration: CI/CD sends builds, Feedback Loop learns from incidents</li>
+                </ul>
+            </div>
+
             <!-- Monitoring & Observability -->
             <div class="service-card recommended">
                 <div class="service-header">
@@ -524,7 +685,7 @@
                     <li class="missing">Code quality trends</li>
                     <li class="missing">Resource utilization tracking</li>
                     <li class="missing">Error rate monitoring</li>
-                    <li class="missing">Custom dashboards</li>
+                    <li class="missing">Custom dashboards (Grafana, Prometheus)</li>
                     <li class="missing">Alert management</li>
                 </ul>
             </div>
@@ -563,15 +724,15 @@
                 </div>
                 <span class="status-badge recommended">Recommended</span>
                 <p class="service-description">
-                    Captures user feedback, code review results, and runtime metrics to continuously improve agent performance.
+                    Captures code review results, runtime metrics, and policy violations to continuously improve system. Creates "learning tasks" for auto-adjustment.
                 </p>
                 <ul class="service-features">
-                    <li class="missing">User feedback collection</li>
-                    <li class="missing">Code review integration</li>
-                    <li class="missing">Model fine-tuning data collection</li>
-                    <li class="missing">A/B testing framework</li>
-                    <li class="missing">Performance analytics</li>
-                    <li class="missing">Automated improvements</li>
+                    <li class="missing">Extract patterns from PR reviews (what was corrected)</li>
+                    <li class="missing">Normalize to rules & anti-patterns → Knowledge Base</li>
+                    <li class="missing">Mark PRs with agent_id, model_profile, spec_id</li>
+                    <li class="missing">"Learning tasks" scheduled: update rules, regenerate context</li>
+                    <li class="missing">Metrics: "defects per feature" before/after learning cycle</li>
+                    <li class="missing">Integration with Testing, CI/CD, Policy Guardian</li>
                 </ul>
             </div>
 
@@ -589,7 +750,7 @@
                     Isolated execution environment for safely running and testing generated code without affecting production systems.
                 </p>
                 <ul class="service-features">
-                    <li class="missing">Container-based isolation</li>
+                    <li class="missing">Container-based isolation (Docker) or microVMs (Firecracker)</li>
                     <li class="missing">Resource limits & quotas</li>
                     <li class="missing">Network isolation</li>
                     <li class="missing">Runtime monitoring</li>
@@ -609,15 +770,15 @@
                 </div>
                 <span class="status-badge recommended">Recommended</span>
                 <p class="service-description">
-                    AI-powered code review service that analyzes generated code for quality, security, and best practices.
+                    AI-powered code review service that analyzes generated code for quality, security, and best practices. Feeds findings to Feedback Loop.
                 </p>
                 <ul class="service-features">
-                    <li class="missing">Automated code review</li>
-                    <li class="missing">Security vulnerability detection</li>
-                    <li class="missing">Best practice validation</li>
-                    <li class="missing">Code complexity analysis</li>
-                    <li class="missing">Suggestion generation</li>
-                    <li class="missing">Integration with PR workflows</li>
+                    <li class="missing">Automated code review (patterns, complexity, maintainability)</li>
+                    <li class="missing">Security vulnerability detection (OWASP Top 10)</li>
+                    <li class="missing">Best practice validation (stack-specific rules)</li>
+                    <li class="missing">Code complexity analysis (cyclomatic, cognitive)</li>
+                    <li class="missing">Suggestion generation with rationale</li>
+                    <li class="missing">Integration with PR workflows & Feedback Loop</li>
                 </ul>
             </div>
 
@@ -766,13 +927,157 @@
             </div>
         </div>
 
+        <!-- KNOWLEDGE BASE AS "BRAIN" -->
+        <div class="architecture-flow" style="margin-top: 30px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+            <h2 style="color: white;">🧠 Knowledge Base + Feedback Loop: The System's "Cortex"</h2>
+            <div style="padding: 20px;">
+                <p style="line-height: 1.8; margin-bottom: 20px;">
+                    The most interesting aspect of DLNP_AACE is the combination of <strong>Knowledge Base + Feedback Loop</strong> as the "prefrontal cortex" that enables self-improvement and continuous learning.
+                </p>
+
+                <h3 style="color: white; margin: 25px 0 15px 0; font-size: 1.3em;">Three-Tier Memory Architecture:</h3>
+
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                    <h4 style="color: #ffe5b4; margin-bottom: 10px;">1️⃣ Long-term Product Memory</h4>
+                    <ul style="line-height: 1.8; color: white; margin-left: 20px;">
+                        <li>Project documentation, architecture, ADRs (Architecture Decision Records)</li>
+                        <li>Internal best practices and conventions</li>
+                        <li>Patterns for modules/APIs/DB schemas used frequently</li>
+                        <li>Stored in versioned repos (Markdown, ADR files) + semantic index in vector DB</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                    <h4 style="color: #ffe5b4; margin-bottom: 10px;">2️⃣ Code Pattern Library</h4>
+                    <ul style="line-height: 1.8; color: white; margin-left: 20px;">
+                        <li>Validated code patterns approved by agents and humans</li>
+                        <li>Standard "service backend", test templates, config patterns, logging approaches</li>
+                        <li>Saved as real, reusable templates (not just text for prompting)</li>
+                        <li>Code Generator uses these as building blocks instead of reinventing</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                    <h4 style="color: #ffe5b4; margin-bottom: 10px;">3️⃣ Run-time Episodic Memory</h4>
+                    <ul style="line-height: 1.8; color: white; margin-left: 20px;">
+                        <li>Claude Code session journals and conversation summaries per task</li>
+                        <li>Failed experiments with root cause analysis</li>
+                        <li>Curated by a "Memory Curator Agent" (not raw logs)</li>
+                        <li>Clean, precise summaries ideal for Claude Code context files</li>
+                    </ul>
+                </div>
+
+                <h3 style="color: white; margin: 25px 0 15px 0; font-size: 1.3em;">Feedback Loop as Learning Mechanism:</h3>
+
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
+                    <ol style="line-height: 2; color: white; margin-left: 20px;">
+                        <li><strong>Tag every PR:</strong> agent_id, model_profile, spec_id</li>
+                        <li><strong>Extract learnings:</strong> Code Review Assistant analyzes what was corrected, what patterns appeared in reviews</li>
+                        <li><strong>Normalize to rules:</strong> Feedback Loop converts insights to "rules" and "anti-patterns"</li>
+                        <li><strong>Update Knowledge Base:</strong> New rules saved as context files (e.g., "never use library X for logging", "always initialize validator Z for API type Y")</li>
+                        <li><strong>Agents learn:</strong> SuperClaude and DLNP Agents read updated rules before next generation</li>
+                        <li><strong>Metrics improve:</strong> System becomes predictable for your stack, tracks "defects per feature" over learning cycles</li>
+                    </ol>
+                </div>
+
+                <h3 style="color: white; margin: 25px 0 15px 0; font-size: 1.3em;">Integration with Claude Code:</h3>
+
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
+                    <ol style="line-height: 2; color: white; margin-left: 20px;">
+                        <li><strong>Standardized Context Files:</strong> Auto-maintained <code>claude.md</code> or <code>project_context.md</code> per project with tech stack rules, patterns, business constraints</li>
+                        <li><strong>MCP Server for Knowledge:</strong> Knowledge Base exposed as MCP server with tools like <code>search_docs</code>, <code>get_best_pattern</code>, <code>get_adr</code></li>
+                        <li><strong>Learning Tasks:</strong> Scheduled "retrospective learning" tasks where Agent Eval identifies failures → Feedback Loop creates learning tasks → Agent updates Knowledge Base → Rules/patterns regenerated</li>
+                    </ol>
+                </div>
+
+                <p style="line-height: 1.8; margin-top: 20px; font-weight: bold; font-size: 1.1em;">
+                    Result: A self-evolving environment where Pulse Prana 2 can display graphs like "defects per feature before/after learning cycle" or "avg resolution time vs Knowledge Base version".
+                </p>
+            </div>
+        </div>
+
+        <!-- IMPLEMENTATION PRIORITY -->
+        <div class="architecture-flow" style="margin-top: 30px;">
+            <h2>🎯 Recommended Implementation Order</h2>
+            <div style="padding: 20px;">
+                <p style="line-height: 1.8; margin-bottom: 20px; color: #4a5568;">
+                    Based on research in agentic software engineering, here's the optimal build sequence to reach "near-autonomous" status centered on Claude Code:
+                </p>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #dc2626; margin-bottom: 10px;">🔴 Phase 1: Brain & Memory (Weeks 1-4)</h3>
+                    <ol style="line-height: 2; color: #4a5568; margin-left: 20px;">
+                        <li><strong>Knowledge Base + Feedback Loop (the "cortex"):</strong>
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Build 3-tier memory architecture (vector DB, pattern library, episodic memory)</li>
+                                <li>Create standard context file structure (claude.md per project)</li>
+                                <li>Set up feedback capture from code reviews, tests, runtime</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #ea580c; margin-bottom: 10px;">🟠 Phase 2: Execution Foundation (Weeks 5-8)</h3>
+                    <ol style="line-height: 2; color: #4a5568; margin-left: 20px;">
+                        <li><strong>Workspace Manager + Sandbox + Code Generator:</strong>
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Pipeline: "create workspace" → "run Claude Code with orchestrator plan" → "test" → "propose PR"</li>
+                                <li>Ephemeral environments with snapshot/rollback</li>
+                                <li>Code Generator uses Knowledge Base patterns</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #f59e0b; margin-bottom: 10px;">🟡 Phase 3: Safety & Governance (Weeks 9-12)</h3>
+                    <ol style="line-height: 2; color: #4a5568; margin-left: 20px;">
+                        <li><strong>Policy Guardian + Agent Eval:</strong>
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Without these, autonomy becomes dangerous (remember Hugh Williams' deleted directories!)</li>
+                                <li>Policy engine with guardrails, dual-control for critical ops</li>
+                                <li>Benchmark suite for "speed vs trust gap"</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #10b981; margin-bottom: 10px;">🟢 Phase 4: Operations & Control (Weeks 13-16)</h3>
+                    <ol style="line-height: 2; color: #4a5568; margin-left: 20px;">
+                        <li><strong>Cost Manager + Artifact Hub:</strong>
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>Critical when system runs 24/7 - prevents runaway costs</li>
+                                <li>SBOM generation and provenance tracking</li>
+                                <li>Full audit trail from bug → agent → prompts → build</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div>
+                    <h3 style="color: #2563eb; margin-bottom: 10px;">🔵 Phase 5: Advanced Orchestration (Weeks 17-20)</h3>
+                    <ol style="line-height: 2; color: #4a5568; margin-left: 20px;">
+                        <li><strong>Model Hub / Tool Orchestrator:</strong>
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>At this level, juggle multiple Claude profiles, external agents</li>
+                                <li>Intelligent model selection based on task type</li>
+                                <li>MCP server catalog with smart routing</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
         <div style="margin-top: 40px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white; text-align: center;">
-            <h3 style="margin-bottom: 10px;">📊 Summary</h3>
+            <h3 style="margin-bottom: 10px;">📊 System Summary</h3>
             <p style="font-size: 1.1em; line-height: 1.6;">
                 <strong>Existing:</strong> 4 services (Planning, Execution, Agents, Framework)<br>
-                <strong>Critical Gaps:</strong> 4 services (Code Gen, Testing, CI/CD, Knowledge)<br>
-                <strong>Recommended:</strong> 6 services (Monitoring, Gateway, Feedback, Sandbox, Review, Collaboration)<br>
-                <strong>Total Complete System:</strong> 14 interconnected services
+                <strong>Critical Gaps:</strong> 8 services (Model Hub, Workspace, Spec, Code Gen, Testing, CI/CD, Knowledge, Policy)<br>
+                <strong>Recommended:</strong> 9 services (Agent Eval, Cost Manager, Artifact Hub, Monitoring, Gateway, Feedback, Sandbox, Review, Collaboration)<br>
+                <strong>Total Complete System:</strong> 21 interconnected services forming an "AI Engineering Org"
             </p>
         </div>
     </div>
